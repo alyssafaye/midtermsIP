@@ -22,10 +22,17 @@ public class Draw extends JComponent{
 
 	Monster monster1;
 	Monster monster2;
+	Monster monster3;
+	Monster monster4;
+
 
 	public Draw(){
 		monster1 = new Monster(200, 200);
 		monster2 = new Monster(300, 200);
+
+		monster3 = new Monster(400, 200);
+		monster4 = new Monster(500, 250);
+
 
 		try{
 			image = ImageIO.read(resource);
@@ -96,6 +103,70 @@ public class Draw extends JComponent{
 		thread1.start();
 	}
 
+	public void jumpAnimation(){
+    Thread thread2 = new Thread(new Runnable(){
+      public void run(){
+        for(int ctr = 0; ctr < 5 ; ctr++){
+          try {
+            if(ctr == 4){
+              resource = getClass().getResource("run0.png");
+            }
+            else{
+              resource = getClass().getResource("jump"+ctr+".png");
+            }
+            
+            try{
+              image = ImageIO.read(resource);
+            }
+            catch(IOException e){
+              e.printStackTrace();
+            }
+                repaint();
+                Thread.sleep(100);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    });
+    thread2.start();
+  }
+
+  public void smrsltAnimation(){
+    Thread thread3 = new Thread(new Runnable(){
+      public void run(){
+        for(int ctr = 0; ctr < 4 ; ctr++){
+          try {
+            if(ctr == 3){
+              resource = getClass().getResource("run0.png");
+            }
+            else{
+              resource = getClass().getResource("smrslt"+ctr+".png");
+            }
+            
+            try{
+              image = ImageIO.read(resource);
+            }
+            catch(IOException e){
+              e.printStackTrace();
+            }
+                repaint();
+                Thread.sleep(200);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    });
+    thread3.start();
+  }
+   public void jump(){
+    jumpAnimation();
+  }
+    public void smrslt(){
+    smrsltAnimation();
+  }
+
 	public void attack(){
 		attackAnimation();
 	}
@@ -132,5 +203,8 @@ public class Draw extends JComponent{
 
 		g.drawImage(monster1.image, monster1.xPos, monster1.yPos, this);
 		g.drawImage(monster2.image, monster2.xPos, monster2.yPos, this);
+		g.drawImage(monster3.image, monster3.xPos, monster3.yPos, this);
+		g.drawImage(monster4.image, monster4.xPos, monster4.yPos, this);
+
 	}
 }
